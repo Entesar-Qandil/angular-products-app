@@ -1,9 +1,9 @@
-export type productCategory = 'Electronics' | 'Food' | 'Toys' | 'Books' | 'Others';
+export type ProductCategory = 'Electronics' | 'Food' | 'Toys' | 'Books' | 'Others';
 
-export interface productsItem {
+export interface ProductsItem {
     id: string;
     name: string;
     price: number;
-    category: productCategory;
+    category: ProductCategory;
     dateOfCreation: string;
 }
