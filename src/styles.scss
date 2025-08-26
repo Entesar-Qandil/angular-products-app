@@ -1,1 +1,39 @@
-@import "@progress/kendo-theme-default/dist/all.css";
+@import "@progress/kendo-theme-material/dist/all.css";
+
+
+.k-grid {
+    border-radius: 14px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+}
+
+.k-grid .k-table-th {
+    font-weight: 600;
+    background: #fafafa;
+}
+
+.k-grid .k-table-td,
+.k-grid .k-table-th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    font-size: 14.5px;
+}
+
+.cell-num {
+    display: inline-block;
+    min-width: 100px;
+    text-align: right;
+}
+
+.cell-muted {
+    opacity: .75;
+}
+
+.k-grid .k-table-tbody .k-table-row:nth-child(even) .k-table-td {
+    background: #fcfcfc;
+}
+
+.k-grid .k-table-td a.k-button,
+.k-grid .k-table-td button.k-button {
+    margin-right: 6px;
+}
