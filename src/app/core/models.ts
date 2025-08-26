@@ -6,4 +6,5 @@ export interface ProductsItem {
     price: number;
     category: ProductCategory;
     dateOfCreation: string;
+     image?: string;
 }

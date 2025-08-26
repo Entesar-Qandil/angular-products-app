@@ -1,1 +1,37 @@
-<p>product-form works!</p>
+<form #f="ngForm" (ngSubmit)="submit(f)" class="k-form k-form-horizontal" novalidate>
+    <div class="k-form-field">
+        <label class="k-label">Name</label>
+        <input class="k-textbox" name="name" [(ngModel)]="model.name" #name="ngModel" required minlength="2" />
+        <div class="k-text-error" *ngIf="(name?.touched || f?.submitted) && !!name?.invalid">Name is required (min 2).
+        </div>
+    </div>
+
+    <div class="k-form-field">
+        <label class="k-label">Price</label>
+        <kendo-numerictextbox name="price" [(ngModel)]="model.price" #price="ngModel" [min]="0.01"
+            required></kendo-numerictextbox>
+        <div class="k-text-error" *ngIf="(price?.touched || f?.submitted) && !!price?.invalid">Price must be > 0.</div>
+    </div>
+
+    <div class="k-form-field">
+        <label class="k-label">Category</label>
+        <kendo-dropdownlist name="category" [(ngModel)]="model.category" #category="ngModel" [data]="categories"
+            required></kendo-dropdownlist>
+        <div class="k-text-error" *ngIf="(category?.touched || f?.submitted) && !!category?.invalid">Category is
+            required.</div>
+    </div>
+
+    <div class="k-form-field">
+        <label class="k-label">Image URL</label>
+        <input class="k-textbox" name="image" [(ngModel)]="model.image" #image="ngModel"
+            placeholder="https://picsum.photos/id/21/200/150" />
+        <div class="preview" *ngIf="model.image">
+            <img [src]="model.image" alt="Preview" width="120" (error)="model.image=''" />
+        </div>
+    </div>
+
+    <div class="k-form-buttons">
+        <button kendoButton themeColor="primary" type="submit" [disabled]="!!f?.invalid">Add</button>
+        <a kendoButton [routerLink]="'/products'">Cancel</a>
+    </div>
+</form>

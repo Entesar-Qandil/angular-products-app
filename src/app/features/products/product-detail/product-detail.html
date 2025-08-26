@@ -1,1 +1,48 @@
-<p>product-detail works!</p>
+<div *ngIf="product; else notFound">
+    <form [formGroup]="form" class="k-form k-form-horizontal" (ngSubmit)="save()">
+        <div class="k-form-field">
+            <label class="k-label">Name</label>
+            <input class="k-textbox" formControlName="name" />
+            <div class="k-text-error" *ngIf="form.controls.name.touched && form.controls.name.invalid">
+                Name is required (min 2).
+            </div>
+        </div>
+
+        <div class="k-form-field">
+            <label class="k-label">Price</label>
+            <kendo-numerictextbox formControlName="price" [min]="0.01"></kendo-numerictextbox>
+            <div class="k-text-error" *ngIf="form.controls.price.touched && form.controls.price.invalid">
+                Price must be > 0.
+            </div>
+        </div>
+
+        <div class="k-form-field">
+            <label class="k-label">Category</label>
+            <kendo-dropdownlist formControlName="category" [data]="categories"></kendo-dropdownlist>
+            <div class="k-text-error" *ngIf="form.controls.category.touched && form.controls.category.invalid">
+                Category is required.
+            </div>
+        </div>
+
+        <div class="k-form-field">
+            <label class="k-label">Image URL</label>
+            <input class="k-textbox" formControlName="image" />
+        </div>
+
+        <div *ngIf="form.value.image">
+            <img [src]="form.value.image" alt="Product Image" width="120" (error)="form.patchValue({image: ''})" />
+        </div>
+
+        <div class="k-form-buttons">
+            <button *ngIf="!isReadOnly" kendoButton themeColor="primary" type="submit"
+                [disabled]="form.invalid">Save</button>
+            <button *ngIf="!isReadOnly" kendoButton themeColor="error" type="button" (click)="delete()">Delete</button>
+            <a kendoButton [routerLink]="'/products'">Back</a>
+        </div>
+    </form>
+</div>
+
+<ng-template #notFound>
+    <p>Product not found.</p>
+    <a kendoButton [routerLink]="'/products'">Back</a>
+</ng-template>
