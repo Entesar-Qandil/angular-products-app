@@ -1,21 +1,29 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
+import { InputsModule } from '@progress/kendo-angular-inputs';
+import { ButtonsModule } from '@progress/kendo-angular-buttons';
 import { ProductService } from '../../../core/product.service';
+import { ProductCategory } from '../../../core/models';
 
 @Component({
-  selector: 'app-product-form',
   standalone: true,
-  imports: [CommonModule],
-  template: `
-    <h2 style="margin:8px 0">Add Product (temp)</h2>
-    <button (click)="addSample()">Add sample product</button>
-    <p style="margin-top:8px;">(Template-driven)</p>
-  `
+  selector: 'app-product-form',
+  templateUrl: './product-form.html',
+  imports: [CommonModule, FormsModule, RouterModule, DropDownsModule, InputsModule, ButtonsModule]
 })
 export class ProductForm {
-  private svc = inject(ProductService);
+  private ps = inject(ProductService);
+  private router = inject(Router);
 
-  addSample() {
-    this.svc.addProduct({ name: 'Sample from /add', price: 50, category: 'Food' });
+  model = { name: '', price: null as any, category: null as ProductCategory | null, image: '' };
+  categories: ProductCategory[] = ['Electronics', 'Food', 'Toys', 'Books', 'Others'];
+
+  submit(f: NgForm) {
+    if (f.invalid) return;
+    this.ps.addProduct(this.model as { name: string; price: number; category: ProductCategory; image?: string });
+    this.router.navigate(['/products']);
   }
 }
