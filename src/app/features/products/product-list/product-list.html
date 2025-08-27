@@ -16,7 +16,9 @@
 
     <kendo-grid-column field="price" title="Price" [width]="140">
         <ng-template kendoGridCellTemplate let-dataItem>
-            <span class="cell-num">{{ dataItem.price | currency }}</span>
+            <span class="cell-num" [appExpensive]="dataItem.price" [threshold]="500">
+                {{ dataItem.price | currency }}
+            </span>
         </ng-template>
     </kendo-grid-column>
 
