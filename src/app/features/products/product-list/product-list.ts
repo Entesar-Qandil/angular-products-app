@@ -10,7 +10,15 @@ import { ExpensiveHighlight } from '../../../shared/expensive-highlight';
   standalone: true,
   selector: 'app-product-list',
   templateUrl: './product-list.html',
-  imports: [CommonModule, RouterModule, GridModule, ButtonsModule, DatePipe, CurrencyPipe, ExpensiveHighlight]
+  imports: [
+    CommonModule,
+    RouterModule,
+    GridModule,
+    ButtonsModule,
+    DatePipe,
+    CurrencyPipe,
+    ExpensiveHighlight
+  ]
 })
 export class ProductList {
   private readonly productService = inject(ProductService);
