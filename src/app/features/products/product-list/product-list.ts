@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, signal, computed, inject } from '@angular/core';
 import { CommonModule, DatePipe, CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
@@ -31,10 +31,21 @@ import { ProductCategory } from '../../../core/models';
 })
 export class ProductList {
   private readonly productService = inject(ProductService);
+
   products = this.productService.allProducts;
 
   categories: (ProductCategory | 'All')[] = ['All', 'Electronics', 'Food', 'Toys', 'Books', 'Others'];
-  selectedCategory: ProductCategory | 'All' = 'All';
+
+  selectedCategory = signal<ProductCategory | 'All'>('All');
+
+
+  filtered = computed(() => {
+    const list = this.products() ?? [];
+    const cat = this.selectedCategory();
+    return cat === 'All' ? list : list.filter(p => p.category === cat);
+  });
+
+  totalPrice = this.productService.totalPrice;
 
   removeProduct(id: string) {
     this.productService.removeProduct(id);
