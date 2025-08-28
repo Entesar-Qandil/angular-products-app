@@ -6,9 +6,7 @@
     <kendo-dropdownlist [data]="categories" [(ngModel)]="selectedCategory"></kendo-dropdownlist>
   </div>
 
-  <span class="ml-auto">
-    Count: {{ products() | categoryFilter:selectedCategory }}
-  </span>
+  <span class="ml-auto">Count: {{ products() | categoryFilter:selectedCategory }}</span>
 </div>
 
 <kendo-grid
@@ -48,11 +46,7 @@
 
   <kendo-grid-column title="Actions" [width]="280" [locked]="true">
     <ng-template kendoGridCellTemplate let-dataItem>
-      <div class="actions">
-        <a kendoButton size="small" [routerLink]="['/products', dataItem.id]" [queryParams]="{ mode: 'view' }">View</a>
-        <a kendoButton size="small" [routerLink]="['/products', dataItem.id]">Edit</a>
-        <button kendoButton size="small" themeColor="error" (click)="removeProduct(dataItem.id)">Delete</button>
-      </div>
+      <app-product-actions [id]="dataItem.id" (delete)="removeProduct($event)"></app-product-actions>
     </ng-template>
   </kendo-grid-column>
 </kendo-grid>

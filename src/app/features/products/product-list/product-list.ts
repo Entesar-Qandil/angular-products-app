@@ -8,6 +8,7 @@ import { DropDownsModule } from '@progress/kendo-angular-dropdowns';
 import { ProductService } from '../../../core/product.service';
 import { ExpensiveHighlight } from '../../../shared/expensive-highlight';
 import { CategoryFilterPipe } from '../../../shared/category-filter-pipe';
+import { ProductActions } from '../product-actions/product-actions';
 import { ProductCategory } from '../../../core/models';
 
 @Component({
@@ -24,7 +25,8 @@ import { ProductCategory } from '../../../core/models';
     DatePipe,
     CurrencyPipe,
     ExpensiveHighlight,
-    CategoryFilterPipe
+    CategoryFilterPipe,
+    ProductActions
   ]
 })
 export class ProductList {
