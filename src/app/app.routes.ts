@@ -6,10 +6,8 @@ import { addGuard } from './core/add-guard';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'products' },
-
   { path: 'products', component: ProductList, title: 'Products' },
   { path: 'products/add', component: ProductForm, canActivate: [addGuard], title: 'Add Product' },
   { path: 'products/:id', component: ProductDetail, title: 'Product' },
-
   { path: '**', redirectTo: 'products' },
 ];
