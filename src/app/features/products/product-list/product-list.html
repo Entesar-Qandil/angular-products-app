@@ -1,10 +1,18 @@
 <div class="mb-3 flex gap-2 items-center">
   <a kendoButton [routerLink]="'/products/add'" themeColor="primary">Add</a>
-  <span class="ml-auto">Count: {{ products().length }}</span>
+
+  <div class="flex items-center gap-2">
+    <span>Category:</span>
+    <kendo-dropdownlist [data]="categories" [(ngModel)]="selectedCategory"></kendo-dropdownlist>
+  </div>
+
+  <span class="ml-auto">
+    Count: {{ products() | categoryFilter:selectedCategory }}
+  </span>
 </div>
 
 <kendo-grid
-  [data]="products()"
+  [data]="products() | categoryFilter:selectedCategory"
   [height]="520"
   [sortable]="true"
   [pageSize]="10"
