@@ -1,10 +1,17 @@
-import { Directive } from '@angular/core';
+import { Directive, Input, HostBinding, OnChanges } from '@angular/core';
 
 @Directive({
-  selector: '[appExpensiveHighlight]'
+  selector: '[appExpensive]',
+  standalone: true
 })
-export class ExpensiveHighlight {
+export class ExpensiveHighlight implements OnChanges {
+  @Input('appExpensive') price?: number;
+  @Input() threshold = 500;
 
-  constructor() { }
+  @HostBinding('class.expensive') isExpensive = false;
 
+  ngOnChanges() {
+    const v = Number(this.price);
+    this.isExpensive = Number.isFinite(v) && v >= this.threshold;
+  }
 }

@@ -1,1 +1,52 @@
-<p>product-list works!</p>
+<div class="mb-3 flex gap-2 items-center">
+  <a kendoButton [routerLink]="'/products/add'" themeColor="primary">Add</a>
+
+  <div class="flex items-center gap-2">
+    <span>Category:</span>
+    <kendo-dropdownlist [data]="categories" [(ngModel)]="selectedCategory"></kendo-dropdownlist>
+  </div>
+
+  <span class="ml-auto">Count: {{ products() | categoryFilter:selectedCategory }}</span>
+</div>
+
+<kendo-grid
+  [data]="products() | categoryFilter:selectedCategory"
+  [height]="520"
+  [sortable]="true"
+  [pageSize]="10"
+  [pageable]="{ buttonCount: 5, pageSizes: [5,10,20], info: true }"
+  [filterable]="true"
+  [reorderable]="true"
+  [resizable]="true"
+  [columnMenu]="true"
+>
+  <kendo-grid-column title="Image" [width]="120">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <img *ngIf="dataItem.image" [src]="dataItem.image" alt="Product" width="60" />
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column field="name" title="Name" [width]="220"></kendo-grid-column>
+
+  <kendo-grid-column field="price" title="Price" [width]="140">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span class="cell-num" [appExpensive]="dataItem.price" [threshold]="500">
+        {{ dataItem.price | currency }}
+      </span>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column field="category" title="Category" [width]="160"></kendo-grid-column>
+
+  <kendo-grid-column field="dateOfCreation" title="Created" [width]="220">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <span class="cell-muted">{{ dataItem.dateOfCreation | date:'medium' }}</span>
+    </ng-template>
+  </kendo-grid-column>
+
+  <kendo-grid-column title="Actions" [width]="280" [locked]="true">
+    <ng-template kendoGridCellTemplate let-dataItem>
+      <app-product-actions [id]="dataItem.id" (delete)="removeProduct($event)"></app-product-actions>
+    </ng-template>
+  </kendo-grid-column>
+</kendo-grid>
